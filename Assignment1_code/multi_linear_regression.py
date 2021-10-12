@@ -1,0 +1,65 @@
+# from data import X_train, y_train, X_test, y_test
+import numpy as np
+import random
+
+
+class MultiLinearRegression:
+    def __init__(self, X_train, y_train, X_test, y_test, step_size=0.0000000001):
+        self.y_train = y_train
+        self.y_test = y_test
+        self.m = np.shape(X_train)[1]
+        self.n_train = X_train.shape[0]
+        self.n_test = X_test.shape[0]
+        self.X_train = np.c_[np.ones(self.n_train), X_train]
+        self.X_test = np.c_[np.ones(self.n_test), X_test]
+        random.seed(8)
+        self.a = np.full(self.m + 1, 0)
+        self.trained = False
+        self.step_size = step_size
+
+    def train(self):
+        prev_loss = float('inf')
+        loss = self.loss('train')
+        itr = 0
+        threshold = 0.01
+        while prev_loss - loss > threshold:
+            y_pred = np.matmul(self.X_train, self.a.reshape(-1, 1))
+            self.a = self.a - self.step_size * \
+                np.matmul(y_pred.reshape(1, -1) - self.y_train.reshape(1, -1),
+                          self.X_train).reshape(-1,) * 2 / self.n_train
+            prev_loss = loss
+            loss = self.loss('train')
+            itr += 1
+        self.trained = True
+        return itr
+
+    def loss(self, type):
+        if type == 'train':
+            return np.sum((np.matmul(self.X_train, self.a.reshape(-1, 1)).reshape(-1,) - self.y_train) ** 2) / self.n_train
+        elif type == 'test':
+            return np.sum((np.matmul(self.X_test, self.a.reshape(-1, 1)).reshape(-1,) - self.y_test) ** 2) / self.n_test
+        print('only accept type "train" or "test"')
+
+    def coef(self):
+        if not self.trained:
+            return None
+        return self.a
+
+    def score(self, type='test'):
+        if not self.trained:
+            return None, None
+        ss_res = self.loss(type)
+        if type == 'train':
+            y_train_avg = np.mean(self.y_train)
+            ss_tot = np.sum((self.y_train - y_train_avg) ** 2)
+        elif type == 'test':
+            y_test_avg = np.mean(self.y_test)
+            ss_tot = np.sum((self.y_test - y_test_avg) ** 2)
+        else:
+            print('only accept type "train" or "test"')
+            return None
+        return 1 - ss_res / ss_tot
+
+    def predict(self, X):
+        X_appeded = np.c_[np.ones(np.shape(X)[0]), X]
+        return np.matmul(X_appeded, self.a.reshape(-1, 1)).reshape(-1,)
