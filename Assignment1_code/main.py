@@ -6,7 +6,7 @@ print('------------------------------------------------------')
 print('Uni-variate linear regression')
 for feature, feature_name in enumerate(columns[:-1]):
     print('------------------------------------------------------')
-    print(f'feature chosen: index {feature}, {feature_name}')
+    print(f'feature chosen: index {feature + 1}, {feature_name}')
     x_train = X_train[:, feature]
     x_test = X_test[:, feature]
     model = UnitLinearRegression(x_train, y_train, x_test, y_test)
@@ -17,7 +17,7 @@ for feature, feature_name in enumerate(columns[:-1]):
     print(f"Training loss: { model.loss('train') }")
     print(f"Test loss: { model.loss('test') }")
     print(f"Score: { model.score() }")
-    model.plot(feature, feature_name)
+    model.plot(feature + 1, feature_name)
 # print(f"Prediction: {model.predict(x_train)}")
 
 print('------------------------------------------------------')
@@ -29,5 +29,5 @@ print('Number of iteration: ', itr)
 print(f'Coefficient a={a}')
 print(f"Training loss: { multi_model.loss('train') }")
 print(f"Test loss: { multi_model.loss('test') }")
-# print(f'Prediction: f{multi_model.predict(X_train)}')
+# print(f'Prediction: {multi_model.predict(X_train)}')
 print(f"Score: { multi_model.score() }")

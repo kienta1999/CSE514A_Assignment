@@ -11,8 +11,8 @@ class UnitLinearRegression:
         self.x_test = x_test
         self.y_test = y_test
         random.seed(8)
-        self.m = 0
-        self.b = 0
+        self.m = random.random()
+        self.b = random.random()
         self.trained = False
         self.step_size = step_size
         self.n_train = self.x_train.shape[0]
@@ -22,7 +22,7 @@ class UnitLinearRegression:
         prev_loss = float('inf')
         loss = self.loss('train')
         itr = 0
-        threshold = 0.01
+        threshold = 0.1
         while prev_loss - loss > threshold:
             y_pred = self.m * self.x_train + self.b
             self.m = self.m - self.step_size * \
@@ -40,19 +40,29 @@ class UnitLinearRegression:
         if type == 'train':
             return np.sum((self.m * self.x_train + self.b - self.y_train) ** 2) / self.n_train
         elif type == 'test':
-            return 0.5 * np.sum((self.m * self.x_test + self.b - self.y_test) ** 2) / self.n_test
+            return np.sum((self.m * self.x_test + self.b - self.y_test) ** 2) / self.n_test
+        print('only accept type "train" or "test"')
 
     def coef(self):
         if not self.trained:
             return None, None
         return self.m, self.b
 
-    def score(self):
+    def score(self, type='test'):
         if not self.trained:
             return None, None
-        ss_res = self.loss('test')
-        y_test_avg = np.mean(self.y_test)
-        ss_tot = np.sum((self.y_test - y_test_avg) ** 2)
+        ss_res = self.loss(type)
+        if type == 'train':
+            y_train_avg = np.mean(self.y_train)
+            ss_tot = np.sum((self.y_train - y_train_avg) ** 2) / self.n_train
+        elif type == 'test':
+            y_test_avg = np.mean(self.y_test)
+            ss_tot = np.sum((self.y_test - y_test_avg) ** 2) / self.n_test
+        else:
+            print('only accept type "train" or "test"')
+            return None
+        # y_test_avg = np.mean(self.y_test)
+        # ss_tot = np.sum((self.y_test - y_test_avg) ** 2) / self.n_test
         return 1 - ss_res / ss_tot
 
     def predict(self, x):
@@ -63,6 +73,6 @@ class UnitLinearRegression:
         x_range = np.arange(np.min(self.x_train), np.max(self.x_train), 0.1)
         y_range = self.predict(x_range)
         plt.plot(x_range, y_range, c='orange')
-        # plt.show()
+        plt.title(f'Linear regression on {feature_name}')
         plt.savefig(f"./plot/{feature}_regression.png")
         plt.clf()

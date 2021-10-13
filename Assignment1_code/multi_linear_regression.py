@@ -4,7 +4,7 @@ import random
 
 
 class MultiLinearRegression:
-    def __init__(self, X_train, y_train, X_test, y_test, step_size=0.0000000001):
+    def __init__(self, X_train, y_train, X_test, y_test, step_size=0.000000001):
         self.y_train = y_train
         self.y_test = y_test
         self.m = np.shape(X_train)[1]
@@ -13,7 +13,7 @@ class MultiLinearRegression:
         self.X_train = np.c_[np.ones(self.n_train), X_train]
         self.X_test = np.c_[np.ones(self.n_test), X_test]
         random.seed(8)
-        self.a = np.full(self.m + 1, 0)
+        self.a = np.full(self.m + 1, random.random())
         self.trained = False
         self.step_size = step_size
 
@@ -21,7 +21,7 @@ class MultiLinearRegression:
         prev_loss = float('inf')
         loss = self.loss('train')
         itr = 0
-        threshold = 0.01
+        threshold = 0.1
         while prev_loss - loss > threshold:
             y_pred = np.matmul(self.X_train, self.a.reshape(-1, 1))
             self.a = self.a - self.step_size * \
@@ -51,10 +51,10 @@ class MultiLinearRegression:
         ss_res = self.loss(type)
         if type == 'train':
             y_train_avg = np.mean(self.y_train)
-            ss_tot = np.sum((self.y_train - y_train_avg) ** 2)
+            ss_tot = np.sum((self.y_train - y_train_avg) ** 2) / self.n_train
         elif type == 'test':
             y_test_avg = np.mean(self.y_test)
-            ss_tot = np.sum((self.y_test - y_test_avg) ** 2)
+            ss_tot = np.sum((self.y_test - y_test_avg) ** 2) / self.n_test
         else:
             print('only accept type "train" or "test"')
             return None
