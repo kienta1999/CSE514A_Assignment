@@ -2,6 +2,8 @@ from data import X_train, y_train, X_test, y_test, columns
 import numpy as np
 from unit_linear_regression import UnitLinearRegression
 from multi_linear_regression import MultiLinearRegression
+from closed_form_solution import ClosedFormSolution
+
 
 sorted_models = []
 
@@ -51,3 +53,13 @@ print('------------------------------------------------------')
 print('Result summary, sorted by mse on train')
 for model_summary in sorted_models:
     print(model_summary)
+
+print('------------------------------------------------------')
+print('------------------------------------------------------')
+print('Extra Credit - Closed Form Solution')
+closed_form = ClosedFormSolution(X_train, y_train, X_test, y_test)
+# Not really train, just calculate result
+closed_form.train()
+print(f"Training loss: { closed_form.loss('train') }")
+print(f"Test loss: { closed_form.loss('test') }")
+print(f"Coef: {closed_form.coef()}")
