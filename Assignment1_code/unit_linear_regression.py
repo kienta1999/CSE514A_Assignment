@@ -1,18 +1,18 @@
-# from data import X_train, y_train, X_test, y_test
+from data import columns
 import numpy as np
 import random
 import matplotlib.pyplot as plt
 
 
 class UnitLinearRegression:
-    def __init__(self, x_train, y_train, x_test, y_test, step_size=0.0000000001):
+    def __init__(self, x_train, y_train, x_test, y_test, step_size=0.000001):
         self.x_train = x_train
         self.y_train = y_train
         self.x_test = x_test
         self.y_test = y_test
         random.seed(8)
-        self.m = random.random()
-        self.b = random.random()
+        self.m = 0
+        self.b = 0
         self.trained = False
         self.step_size = step_size
         self.n_train = self.x_train.shape[0]
@@ -23,7 +23,7 @@ class UnitLinearRegression:
         loss = self.loss('train')
         itr = 0
         threshold = 0.1
-        while prev_loss - loss > threshold:
+        while itr < 10000:
             y_pred = self.m * self.x_train + self.b
             self.m = self.m - self.step_size * \
                 np.sum(self.x_train * (y_pred - self.y_train)) * \
@@ -74,5 +74,7 @@ class UnitLinearRegression:
         y_range = self.predict(x_range)
         plt.plot(x_range, y_range, c='orange')
         plt.title(f'Linear regression on {feature_name}')
+        plt.xlabel(f'{feature_name}')
+        plt.ylabel(f'{columns[-1]}')
         plt.savefig(f"./plot/{feature}_regression.png")
         plt.clf()

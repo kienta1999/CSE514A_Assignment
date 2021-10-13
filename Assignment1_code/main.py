@@ -1,4 +1,5 @@
 from data import X_train, y_train, X_test, y_test, columns
+import numpy as np
 from unit_linear_regression import UnitLinearRegression
 from multi_linear_regression import MultiLinearRegression
 
@@ -9,7 +10,9 @@ for feature, feature_name in enumerate(columns[:-1]):
     print(f'feature chosen: index {feature + 1}, {feature_name}')
     x_train = X_train[:, feature]
     x_test = X_test[:, feature]
-    model = UnitLinearRegression(x_train, y_train, x_test, y_test)
+    # step_size = (np.sum(x_train) ** 2) * 0.0000000001
+    model = UnitLinearRegression(
+        x_train, y_train, x_test, y_test)
     itr = model.train()
     w, b = model.coef()
     print('Number of iteration: ', itr)
@@ -18,7 +21,7 @@ for feature, feature_name in enumerate(columns[:-1]):
     print(f"Test loss: { model.loss('test') }")
     print(f"Score: { model.score() }")
     model.plot(feature + 1, feature_name)
-# print(f"Prediction: {model.predict(x_train)}")
+    # print(f"Prediction: {model.predict(x_train)}")
 
 print('------------------------------------------------------')
 print('Multi-variate linear regression')
