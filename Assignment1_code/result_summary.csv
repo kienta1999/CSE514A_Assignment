@@ -1,0 +1,10 @@
+index,feature_name,mse_train,mse_test
+all,all,118.5863123,62.10907801
+1,Cement (component 1)(kg in a m^3 mixture),249.2751598,110.8091627
+6,Coarse Aggregate  (component 6)(kg in a m^3 mixture),322.3370494,165.9516604
+7,Fine Aggregate (component 7)(kg in a m^3 mixture),333.4163391,171.5180711
+4,Water  (component 4)(kg in a m^3 mixture),358.1442026,186.8708342
+5,Superplasticizer (component 5)(kg in a m^3 mixture),741.6108333,303.4062929
+8,Age (day),931.460403,666.1896685
+2,Blast Furnace Slag (component 2)(kg in a m^3 mixture),1002.913533,343.5963797
+3,Fly Ash (component 3)(kg in a m^3 mixture),1115.133518,750.1729157

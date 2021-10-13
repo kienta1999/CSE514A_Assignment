@@ -13,3 +13,4 @@
   Folder <strong>plot</strong> contains all the plots of 8 uni-variate linear
   regression models
 </p>
+<p>File <strong>result_summary.csv</strong> contains the summary result of all models with the MSE on both train and test data</p>
