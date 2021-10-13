@@ -4,7 +4,7 @@ import random
 
 
 class MultiLinearRegression:
-    def __init__(self, X_train, y_train, X_test, y_test, step_size=0.0000001):
+    def __init__(self, X_train, y_train, X_test, y_test, step_size=0.0000001, itr=10000):
         self.y_train = y_train
         self.y_test = y_test
         self.m = np.shape(X_train)[1]
@@ -16,10 +16,11 @@ class MultiLinearRegression:
         self.a = np.full(self.m + 1, 0)
         self.trained = False
         self.step_size = step_size
+        self.itr = itr
 
     def train(self):
         itr = 0
-        while itr < 10000:
+        while itr < self.itr:
             y_pred = np.matmul(self.X_train, self.a.reshape(-1, 1))
             self.a = self.a - self.step_size * \
                 np.matmul(y_pred.reshape(1, -1) - self.y_train.reshape(1, -1),

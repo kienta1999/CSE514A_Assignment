@@ -3,7 +3,8 @@ import numpy as np
 from unit_linear_regression import UnitLinearRegression
 from multi_linear_regression import MultiLinearRegression
 from closed_form_solution import ClosedFormSolution
-
+from polynomial_regression import PolynomialRegression
+from sparse_regression import SparseRegression
 
 sorted_models = []
 
@@ -63,3 +64,19 @@ closed_form.train()
 print(f"Training loss: { closed_form.loss('train') }")
 print(f"Test loss: { closed_form.loss('test') }")
 print(f"Coef: {closed_form.coef()}")
+
+print('------------------------------------------------------')
+print('Extra Credit - Polynomial Regression')
+polynomial_model = PolynomialRegression(X_train, y_train, X_test, y_test)
+polynomial_model.train()
+print(f"Training loss: { polynomial_model.loss('train') }")
+print(f"Test loss: { polynomial_model.loss('test') }")
+print(f"Coef: {polynomial_model.coef()}")
+
+print('------------------------------------------------------')
+print('Extra Credit - Sparse Regression')
+sparse_model = SparseRegression(X_train, y_train, X_test, y_test)
+sparse_model.train()
+print(f"Training loss: { sparse_model.loss('train') }")
+print(f"Test loss: { sparse_model.loss('test') }")
+print(f"Coef: {sparse_model.coef()}")
