@@ -14,15 +14,16 @@ for feature, feature_name in enumerate(columns[:-1]):
     x_test = X_test[:, feature]
     model = UnitLinearRegression(x_train, y_train, x_test, y_test)
     itr = model.train()
-    w, b = model.coef()
+    m, b = model.coef()
     mse_train = model.loss('train')
     mse_test = model.loss('test')
     print('Number of iteration: ', itr)
+    print(f'Coef m={m} and b={b}')
     print(f"Training loss: { mse_train }")
     print(f"Test loss: { mse_test }")
     sorted_models.append(
         {'index': feature + 1, 'feature_name': feature_name,
-            'mse_train': mse_train, 'mse_test': mse_test}
+            'mse_train': mse_train, 'mse_test': mse_test, 'm_uni': m}
     )
     model.plot(feature + 1, feature_name)
 
@@ -43,6 +44,9 @@ sorted_models.append(
 )
 
 sorted_models = sorted(sorted_models, key=lambda model: model['mse_train'])
+for res in sorted_models:
+    if type(res['index']) == int:
+        res['m_multi'] = a[res['index']]
 print('------------------------------------------------------')
 print('Result summary, sorted by mse on train')
 for model_summary in sorted_models:
