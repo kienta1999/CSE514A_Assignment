@@ -40,21 +40,6 @@ class MultiLinearRegression:
             return None
         return self.a
 
-    def score(self, type='test'):
-        if not self.trained:
-            return None, None
-        ss_res = self.loss(type)
-        if type == 'train':
-            y_train_avg = np.mean(self.y_train)
-            ss_tot = np.sum((self.y_train - y_train_avg) ** 2) / self.n_train
-        elif type == 'test':
-            y_test_avg = np.mean(self.y_test)
-            ss_tot = np.sum((self.y_test - y_test_avg) ** 2) / self.n_test
-        else:
-            print('only accept type "train" or "test"')
-            return None
-        return 1 - ss_res / ss_tot
-
     def predict(self, X):
         X_appeded = np.c_[np.ones(np.shape(X)[0]), X]
         return np.matmul(X_appeded, self.a.reshape(-1, 1)).reshape(-1,)

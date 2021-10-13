@@ -3,65 +3,45 @@ Uni-variate linear regression
 ------------------------------------------------------
 feature chosen: index 1, Cement (component 1)(kg in a m^3 mixture)
 Number of iteration:  10000
-Coefficient w=0.11974559950451338 and b=0.03139946350669403
 Training loss: 249.2751597663457
 Test loss: 110.80916268760141
-Score: 0.22898900899531682
 ------------------------------------------------------
 feature chosen: index 2, Blast Furnace Slag (component 2)(kg in a m^3 mixture)
 Number of iteration:  10000
-Coefficient w=0.22047899251681402 and b=0.4208546406369311
 Training loss: 1002.9135327137514
 Test loss: 343.5963796620217
-Score: -1.3907462051283832
 ------------------------------------------------------
 feature chosen: index 3, Fly Ash (component 3)(kg in a m^3 mixture)
 Number of iteration:  10000
-Coefficient w=0.27497533723772827 and b=0.4537335171315669
 Training loss: 1115.1335178327136
 Test loss: 750.1729157119987
-Score: -4.2197088141403105
 ------------------------------------------------------
 feature chosen: index 4, Water  (component 4)(kg in a m^3 mixture)
 Number of iteration:  10000
-Coefficient w=0.19494080882552947 and b=0.023490942068678796
 Training loss: 358.1442025850574
 Test loss: 186.8708342127432
-Score: -0.3002486760272238
 ------------------------------------------------------
 feature chosen: index 5, Superplasticizer (component 5)(kg in a m^3 mixture)
 Number of iteration:  10000
-Coefficient w=2.6914598982103772 and b=0.5285927507605775
 Training loss: 741.6108332870022
 Test loss: 303.4062929129108
-Score: -1.1111032779423327
 ------------------------------------------------------
 feature chosen: index 6, Coarse Aggregate  (component 6)(kg in a m^3 mixture)
 Number of iteration:  10000
-Coefficient w=0.03658603454658212 and b=0.009474389528920112
 Training loss: 322.3370494098269
 Test loss: 165.9516604247475
-Score: -0.1546929067922087
 ------------------------------------------------------
 feature chosen: index 7, Fine Aggregate (component 7)(kg in a m^3 mixture)
 Number of iteration:  10000
-Coefficient w=0.04592066616867925 and b=0.0143653877591515
 Training loss: 333.4163390518505
 Test loss: 171.51807109268617
-Score: -0.1934240342669824
 ------------------------------------------------------
 feature chosen: index 8, Age (day)
 Number of iteration:  10000
-Coefficient w=0.30999871286414055 and b=0.42506363002472874
 Training loss: 931.4604030061139
 Test loss: 666.1896684701678
-Score: -3.6353527454434706
 ------------------------------------------------------
 Multi-variate linear regression
 Number of iteration:  10000
-Coefficient a=[-4.57743033e-05  1.15877312e-01  9.70640305e-02  1.03922580e-01
- -1.39596850e-01  3.72044528e-02  1.55534825e-03  1.20004092e-02
-  1.07326558e-01]
 Training loss: 118.58631233454756
 Test loss: 62.10907801096792
-Score: 0.567844566043439
