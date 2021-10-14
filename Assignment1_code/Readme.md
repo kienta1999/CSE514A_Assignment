@@ -1,3 +1,4 @@
+<h1>Make sure you are in Assignment1_code folder before running the program</h1>
 <p>
   File <strong>script.sh</strong> contains the commands to execute the program.
 </p>
