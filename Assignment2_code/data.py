@@ -8,5 +8,11 @@ data.drop(0, axis=1, inplace=True)
 data.dropna(inplace=True)
 X = np.array(data.drop(10, axis=1))
 y = np.array(data[10])
-y = np.where(y == 2, 0, 1).reshape(-1, 1)
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
+y = np.where(y == 2, 0, 1)
+X_train, X_val, y_train_1d, y_val_1d = train_test_split(X, y, test_size=0.1, random_state=42)
+
+y_train = y_train_1d.reshape(-1, 1)
+y_val = y_val_1d.reshape(-1, 1)
+
+y_train_onehot = np.array(pd.get_dummies(y_train_1d))
+y_val_onehot = np.array(pd.get_dummies(y_val_1d))
