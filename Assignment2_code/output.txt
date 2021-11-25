@@ -1,0 +1,21 @@
+--------------------------------------------------------------------------------------
+Model: KNN
+best k value for KNN 7 with mean accuracy 0.9690639873083026
+--------------------------------------------------------------------------------------
+Model: Decision Tree
+best max_depth value for Decision Tree 2 with mean accuracy 0.9478318350079323
+--------------------------------------------------------------------------------------
+Model: Random Forest
+best max_depth value for Random Forest 4 with mean accuracy 0.9674246430460075
+--------------------------------------------------------------------------------------
+Model: SVM using the polynomial kernel
+best degree value for Polynomial SVM 1 with mean accuracy 0.9690111052353254
+--------------------------------------------------------------------------------------
+Model: SVM using the RBF kernel
+best C value for RBF SVM 1.3000000000000003 with mean accuracy 0.9674246430460075
+--------------------------------------------------------------------------------------
+Model: Deep neural network with sigmoid activation
+best epoch value for NN with sigmoid 30 with mean accuracy 0.9479904770851135
+--------------------------------------------------------------------------------------
+Model: Deep neural network with relu activation
+best epoch value for NN with relu 27 with mean accuracy 0.9511105239391326
