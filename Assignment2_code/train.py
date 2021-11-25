@@ -143,8 +143,42 @@ plt.clf()
 
 # Save best model
 best_degree = np.argmax(accuracies) + 1
-print('best max_depth value for Random Forest', best_degree, 'with mean accuracy', max(accuracies))
+print('best degree value for Polynomial SVM', best_degree, 'with mean accuracy', max(accuracies))
 best_models.append({
     'name': 'Polynomial SVM',
     'model': SVC(kernel='poly', degree=best_degree),
 })
+
+print('--------------------------------------------------------------------------------------')
+print('Model: SVM using the RBF kernel')
+
+from sklearn.svm import SVC
+C_values = np.arange(0.1,3.1,0.1)
+accuracies = np.zeros(len(C_values))
+for i, C in enumerate(C_values):
+    model = SVC(kernel='rbf', C=C)
+    kf = KFold(n_splits=NUM_FOLDS)
+    mean_accuracy = 0
+    for i, (train_index, test_index) in enumerate(kf.split(X_train)):
+        X_train_fold, X_test_fold = X_train[train_index], X_train[test_index]
+        y_train_fold, y_test_fold = y_train_1d[train_index], y_train_1d[test_index]
+        model.fit(X_train_fold, y_train_fold)
+        mean_accuracy += accuracy(model, X_test_fold, y_test_fold)
+    mean_accuracy /= NUM_FOLDS
+    accuracies[i] = mean_accuracy
+# Plot accuracy
+plt.plot(C_values, accuracies)
+plt.xlabel('C - the lower C is, the higher strength of regularization')
+plt.ylabel('Accuracy')
+plt.title('Cross validation result of SVM using the rbf kernel')
+plt.savefig('./plots/RBF-SVM.png')
+plt.clf()
+
+# Save best model
+best_C = C_values[np.argmax(accuracies)]
+print('best C value for RBF SVM', best_C, 'with mean accuracy', max(accuracies))
+best_models.append({
+    'name': 'RBF SVM',
+    'model': SVC(kernel='rbf', C=best_C),
+})
+
