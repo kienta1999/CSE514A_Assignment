@@ -187,23 +187,23 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 # Define Sequential model with 3 layers
-epoch_values = np.arange(1,31,1)
-accuracies = np.zeros(len(epoch_values))
-for i, epoch in enumerate(epoch_values):
+node_per_layer = np.arange(2,31,1)
+accuracies = np.zeros(len(node_per_layer))
+for i, input in enumerate(node_per_layer):
     kf = KFold(n_splits=NUM_FOLDS)
     mean_accuracy = 0
     for train_index, test_index in kf.split(X_train):
         model = keras.Sequential(name="sigmoid_model")
-        model.add(layers.Dense(10, activation="sigmoid"))
-        model.add(layers.Dense(10, activation="sigmoid"))
-        model.add(layers.Dense(10, activation="sigmoid"))
+        model.add(layers.Dense(input, activation="sigmoid"))
+        model.add(layers.Dense(input, activation="sigmoid"))
+        model.add(layers.Dense(input, activation="sigmoid"))
         model.add(layers.Dense(2, activation="softmax"))
         # callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=2)
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         
         X_train_fold, X_test_fold = X_train[train_index], X_train[test_index]
         y_train_fold, y_test_fold = y_train_onehot[train_index], y_train_onehot[test_index]
-        model.fit(X_train_fold, y_train_fold, epochs = epoch) # , callbacks=[callback]
+        model.fit(X_train_fold, y_train_fold, epochs = 25) # , callbacks=[callback]
 
         val_loss, val_acc = model.evaluate(X_test_fold, y_test_fold, verbose=2)
         # print("Model accuracy on val: {:5.2f}%".format(100 * val_acc))
@@ -212,44 +212,42 @@ for i, epoch in enumerate(epoch_values):
     mean_accuracy /= NUM_FOLDS
     accuracies[i] = mean_accuracy
 # Plot accuracy
-plt.plot(epoch_values, accuracies)
-plt.xlabel('epoch')
+plt.plot(node_per_layer, accuracies)
+plt.xlabel('Node per layer count')
 plt.ylabel('Accuracy')
 plt.title('Cross validation result of deep neural network with sigmoid activation')
 plt.savefig('./plots/NN-sigmoid.png')
 plt.clf()
 
 # Save best model
-best_epoch = epoch_values[np.argmax(accuracies)]
-print('best epoch value for NN with sigmoid', best_epoch, 'with mean accuracy', max(accuracies))
+best_node = node_per_layer[np.argmax(accuracies)]
+print('best node count per layer value for NN with sigmoid', best_node, 'with mean accuracy', max(accuracies))
 best_models.append({
     'name': 'NN with sigmoid',
-    'best_epoch': best_epoch,
+    'best_node': best_node,
 })
 
 print('--------------------------------------------------------------------------------------')
 print('Model: Deep neural network with relu activation')
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
 
-epoch_values = np.arange(1,31,1)
-accuracies = np.zeros(len(epoch_values))
-for i, epoch in enumerate(epoch_values):
+# Define Sequential model with 3 layers
+node_per_layer = np.arange(2,31,1)
+accuracies = np.zeros(len(node_per_layer))
+for i, input in enumerate(node_per_layer):
     kf = KFold(n_splits=NUM_FOLDS)
     mean_accuracy = 0
     for train_index, test_index in kf.split(X_train):
         model = keras.Sequential(name="relu_model")
-        model.add(layers.Dense(10, activation="relu"))
-        model.add(layers.Dense(10, activation="relu"))
-        model.add(layers.Dense(10, activation="relu"))
+        model.add(layers.Dense(input, activation="relu"))
+        model.add(layers.Dense(input, activation="relu"))
+        model.add(layers.Dense(input, activation="relu"))
         model.add(layers.Dense(2, activation="softmax"))
         # callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=2)
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         
         X_train_fold, X_test_fold = X_train[train_index], X_train[test_index]
         y_train_fold, y_test_fold = y_train_onehot[train_index], y_train_onehot[test_index]
-        model.fit(X_train_fold, y_train_fold, epochs = epoch) # , callbacks=[callback]
+        model.fit(X_train_fold, y_train_fold, epochs = 25) # , callbacks=[callback]
 
         val_loss, val_acc = model.evaluate(X_test_fold, y_test_fold, verbose=2)
         # print("Model accuracy on val: {:5.2f}%".format(100 * val_acc))
@@ -258,17 +256,17 @@ for i, epoch in enumerate(epoch_values):
     mean_accuracy /= NUM_FOLDS
     accuracies[i] = mean_accuracy
 # Plot accuracy
-plt.plot(epoch_values, accuracies)
-plt.xlabel('epoch')
+plt.plot(node_per_layer, accuracies)
+plt.xlabel('Node per layer count')
 plt.ylabel('Accuracy')
 plt.title('Cross validation result of deep neural network with relu activation')
 plt.savefig('./plots/NN-relu.png')
 plt.clf()
 
 # Save best model
-best_epoch = epoch_values[np.argmax(accuracies)]
-print('best epoch value for NN with relu', best_epoch, 'with mean accuracy', max(accuracies))
+best_node = node_per_layer[np.argmax(accuracies)]
+print('best node count per layer value for NN with relu', best_node, 'with mean accuracy', max(accuracies))
 best_models.append({
     'name': 'NN with relu',
-    'best_epoch': best_epoch,
+    'best_node': best_node,
 })
