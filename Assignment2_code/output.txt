@@ -15,7 +15,7 @@ Model: SVM using the RBF kernel
 best C value for RBF SVM 1.3000000000000003 with mean accuracy 0.9674246430460075
 --------------------------------------------------------------------------------------
 Model: Deep neural network with sigmoid activation
-best epoch value for NN with sigmoid 26 with mean accuracy 0.9365943968296051
+best node count per layer value for NN with sigmoid 28 with mean accuracy 0.9706768989562988
 --------------------------------------------------------------------------------------
 Model: Deep neural network with relu activation
-best epoch value for NN with relu 22 with mean accuracy 0.9608672738075257
+best node count per layer value for NN with relu 23 with mean accuracy 0.9674246370792389
