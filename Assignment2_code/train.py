@@ -19,7 +19,7 @@ print('Model: KNN')
 from sklearn.neighbors import KNeighborsClassifier
 MAX_K = 30
 accuracies = np.zeros(MAX_K)
-# n_neighbors from 1 --> 20 inclusive
+# n_neighbors from 1 --> 30 inclusive
 for n_neighbors in range(1, MAX_K + 1):
     model = KNeighborsClassifier(n_neighbors=n_neighbors)
     kf = KFold(n_splits=NUM_FOLDS)
@@ -196,6 +196,7 @@ for i, epoch in enumerate(epoch_values):
         model = keras.Sequential(name="sigmoid_model")
         model.add(layers.Dense(10, activation="sigmoid"))
         model.add(layers.Dense(10, activation="sigmoid"))
+        model.add(layers.Dense(10, activation="sigmoid"))
         model.add(layers.Dense(2, activation="softmax"))
         # callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=2)
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -239,6 +240,7 @@ for i, epoch in enumerate(epoch_values):
     mean_accuracy = 0
     for train_index, test_index in kf.split(X_train):
         model = keras.Sequential(name="relu_model")
+        model.add(layers.Dense(10, activation="relu"))
         model.add(layers.Dense(10, activation="relu"))
         model.add(layers.Dense(10, activation="relu"))
         model.add(layers.Dense(2, activation="softmax"))
