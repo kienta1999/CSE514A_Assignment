@@ -20,23 +20,23 @@ final_output = []
 
 sklearn_models = [
     {
-        'model': KNeighborsClassifier(n_neighbors=7),
+        'model': KNeighborsClassifier(n_neighbors=5),
         'name': 'KNN',
     },
     {
-        'model': DecisionTreeClassifier(random_state=0, max_depth=2),
+        'model': DecisionTreeClassifier(random_state=0, max_depth=5),
         'name': 'Decision Tree',
     },
     {
-        'model': RandomForestClassifier(random_state=0, max_depth=4),
+        'model': RandomForestClassifier(random_state=0, max_depth=5),
         'name': 'Random Forest',
     },
     {
-        'model': SVC(kernel='poly', degree=1),
+        'model': SVC(kernel='poly', degree=2),
         'name': 'Polynomial SVM',
     },
     {
-        'model': SVC(kernel='rbf', C=1.3),
+        'model': SVC(kernel='rbf', C=0.7),
         'name': 'RBF SVM',
     }
 ]
@@ -68,17 +68,17 @@ for model_infor in sklearn_models:
 
 # sigmoid
 sigmoid_model = keras.Sequential(name="sigmoid_model")
-sigmoid_model.add(layers.Dense(28, activation="sigmoid"))
-sigmoid_model.add(layers.Dense(28, activation="sigmoid"))
-sigmoid_model.add(layers.Dense(28, activation="sigmoid"))
+sigmoid_model.add(layers.Dense(26, activation="sigmoid"))
+sigmoid_model.add(layers.Dense(26, activation="sigmoid"))
+sigmoid_model.add(layers.Dense(26, activation="sigmoid"))
 sigmoid_model.add(layers.Dense(2, activation="softmax"))
 sigmoid_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 #relu
 relu_model = keras.Sequential(name="relu_model")
-relu_model.add(layers.Dense(28, activation="relu"))
-relu_model.add(layers.Dense(28, activation="relu"))
-relu_model.add(layers.Dense(28, activation="relu"))
+relu_model.add(layers.Dense(27, activation="relu"))
+relu_model.add(layers.Dense(27, activation="relu"))
+relu_model.add(layers.Dense(27, activation="relu"))
 relu_model.add(layers.Dense(2, activation="softmax"))
 relu_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 tensorflow_NN_models = [
@@ -113,6 +113,7 @@ for model_infor in tensorflow_NN_models:
         'num_val_samples': num_val_samples,
     })
 
+# Citation: https://www.tutorialspoint.com/How-to-save-a-Python-Dictionary-to-CSV-file
 csv_columns = final_output[0].keys()
 csv_file = "final_validation_output.csv"
 try:
