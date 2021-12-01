@@ -19,3 +19,11 @@ best node count per layer value for NN with sigmoid 26 with mean accuracy 0.9634
 --------------------------------------------------------------------------------------
 Model: Deep neural network with relu activation
 best node count per layer value for NN with relu 27 with mean accuracy 0.9682027637958527
+--------------------------------------------------------------------------------------
+OPTIONAL EXTENSION 3
+--------------------------------------------------------------------------------------
+Model: Ridge Classifier
+best alpha value for Ridge Classifier 0.1 with mean accuracy 0.9570660522273424
+--------------------------------------------------------------------------------------
+Model: AdaBoost
+best n_estimators value for AdaBoost 110 with mean accuracy 0.9570916538658473

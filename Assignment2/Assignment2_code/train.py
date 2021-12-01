@@ -270,3 +270,70 @@ best_models.append({
     'name': 'NN with relu',
     'best_node': best_node,
 })
+
+print('--------------------------------------------------------------------------------------')
+print('OPTIONAL EXTENSION 3')
+print('--------------------------------------------------------------------------------------')
+print('Model: Ridge Classifier')
+
+from sklearn.linear_model import RidgeClassifier
+alpha_values = np.arange(0.1,5.1,0.1)
+accuracies = np.zeros(len(alpha_values))
+for i, alpha in enumerate(alpha_values):
+    model = RidgeClassifier(alpha=alpha)
+    kf = KFold(n_splits=NUM_FOLDS)
+    mean_accuracy = 0
+    for train_index, test_index in kf.split(X_train):
+        X_train_fold, X_test_fold = X_train[train_index], X_train[test_index]
+        y_train_fold, y_test_fold = y_train_1d[train_index], y_train_1d[test_index]
+        model.fit(X_train_fold, y_train_fold)
+        mean_accuracy += accuracy(model, X_test_fold, y_test_fold)
+    mean_accuracy /= NUM_FOLDS
+    accuracies[i] = mean_accuracy
+# Plot accuracy
+plt.plot(alpha_values, accuracies)
+plt.xlabel('Alpha - regularization strength')
+plt.ylabel('Accuracy')
+plt.title('Cross validation result of Ridge Classifier')
+plt.savefig('./plots/Ridge-Classifier.png')
+plt.clf()
+
+# Save best model
+best_alpha = alpha_values[np.argmax(accuracies)]
+print('best alpha value for Ridge Classifier', best_alpha, 'with mean accuracy', max(accuracies))
+best_models.append({
+    'name': 'Ridge Classifier',
+    'model': RidgeClassifier(alpha=best_alpha),
+})
+
+print('--------------------------------------------------------------------------------------')
+print('Model: AdaBoost')
+from sklearn.ensemble import AdaBoostClassifier
+n_estimators_values = np.arange(10,201,10)
+accuracies = np.zeros(len(n_estimators_values))
+for i, n_estimators in enumerate(n_estimators_values):
+    model = AdaBoostClassifier(n_estimators=n_estimators)
+    kf = KFold(n_splits=NUM_FOLDS)
+    mean_accuracy = 0
+    for train_index, test_index in kf.split(X_train):
+        X_train_fold, X_test_fold = X_train[train_index], X_train[test_index]
+        y_train_fold, y_test_fold = y_train_1d[train_index], y_train_1d[test_index]
+        model.fit(X_train_fold, y_train_fold)
+        mean_accuracy += accuracy(model, X_test_fold, y_test_fold)
+    mean_accuracy /= NUM_FOLDS
+    accuracies[i] = mean_accuracy
+# Plot accuracy
+plt.plot(n_estimators_values, accuracies)
+plt.xlabel('Number of estimators')
+plt.ylabel('Accuracy')
+plt.title('Cross validation result of AdaBoost')
+plt.savefig('./plots/AdaBoost.png')
+plt.clf()
+
+# Save best model
+best_n_estimators = n_estimators_values[np.argmax(accuracies)]
+print('best n_estimators value for AdaBoost', best_n_estimators, 'with mean accuracy', max(accuracies))
+best_models.append({
+    'name': 'AdaBoost',
+    'model': AdaBoostClassifier(n_estimators=n_estimators),
+})

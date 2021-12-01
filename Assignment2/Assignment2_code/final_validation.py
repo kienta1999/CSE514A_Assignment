@@ -2,6 +2,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
+from sklearn.linear_model import RidgeClassifier
+from sklearn.ensemble import AdaBoostClassifier
 
 import tensorflow as tf
 from tensorflow import keras
@@ -38,6 +40,14 @@ sklearn_models = [
     {
         'model': SVC(kernel='rbf', C=0.7),
         'name': 'RBF SVM',
+    },
+    {
+        'model': RidgeClassifier(alpha=0.1),
+        'name': 'Ridge Classifier'
+    },
+    {
+        'model': AdaBoostClassifier(n_estimators=110),
+        'name': 'AdaBoost Classifier'
     }
 ]
 
@@ -116,6 +126,7 @@ for model_infor in tensorflow_NN_models:
 # Citation: https://www.tutorialspoint.com/How-to-save-a-Python-Dictionary-to-CSV-file
 csv_columns = final_output[0].keys()
 csv_file = "final_validation_output.csv"
+print(final_output)
 try:
     with open(csv_file, 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
